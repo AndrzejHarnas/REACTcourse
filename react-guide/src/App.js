@@ -20,7 +20,8 @@ switchNameHandler = (newName) => {
        {name: newName, age: 28 },
        {name: 'Manu', age: 29 },
        {name: 'Stephany', age: 27 }
-     ]
+     ],
+     showPersons: false
    });
 };
 
@@ -33,6 +34,12 @@ nameChangeHandler = (event) => {
       ]
     });
 };
+
+
+togglePersonsHandler =() => {
+const doesShow = this.state.showPersons;
+this.setState({showPersons: !doesShow});
+}
 
 render(){
   const style = {
@@ -47,7 +54,9 @@ return (
         <p> This is really working </p>
         <button
          style={style}
-         onClick={() => this.switchNameHandler('Stafan')}> Switch Name </button>
+         onClick={() => this.togglePersonsHandler()}> Switch Name </button>
+        { this.state.showPersons ?
+          <div>
             <Person
              name={this.state.persons[0].name}
              age={this.state.persons[0].age}
@@ -60,6 +69,8 @@ return (
             <Person
             name={this.state.persons[2].name}
             age={this.state.persons[2].age}/>
+        </div> : null
+      }
       </div>
     );
 }
