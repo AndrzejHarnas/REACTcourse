@@ -10,6 +10,7 @@ state = ({
     {id:'2', name: 'Manu', age: 29 },
     {id:'3', name: 'Stephany', age: 26 }
   ],
+  showPersons: false
   otherState: 'some other value'
 });
 
