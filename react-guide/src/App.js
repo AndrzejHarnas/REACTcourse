@@ -10,7 +10,7 @@ state = ({
     {id:'2', name: 'Manu', age: 29 },
     {id:'3', name: 'Stephany', age: 26 }
   ],
-  showPersons: false
+  showPersons: false,
   otherState: 'some other value'
 });
 
@@ -59,7 +59,8 @@ this.setState({showPersons: !doesShow});
 
 render(){
   const style = {
-    backgroundColor:'white',
+    backgroundColor:'green',
+    color: 'white',
     font: 'inherit',
     border: '1px solid blue',
     padding: '8px'
@@ -79,7 +80,8 @@ if(this.state.showPersons) {
        changed={(event) => this.nameChangeHandler(event, person.id)} />
      })}
   </div>
-  )
+        );
+ style.backgroundColor = 'red';
 }
 
 
