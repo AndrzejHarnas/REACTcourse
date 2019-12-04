@@ -6,6 +6,11 @@ import classes from './Person.css'
 
 const Person = (props) => {
 
+const rnd = Math.random();
+
+if(rnd > 0.7) {
+  throw new Error('coś poszło nie tak')
+}
 
 const StyledDiv =   styled.div`
     width: 60%;

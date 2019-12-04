@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import classes from'./App.css';
 import Person from './Person/Person';
 import styled from 'styled-components';
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 
 const StyledButton = styled.button`
   background-color: ${props => props.alt ? 'red' : 'green'};
@@ -79,12 +80,12 @@ if(this.state.showPersons) {
   persons = (
     <div>
      { this.state.persons.map((person, index) => {
-       return <Person
+       return <ErrorBoundary  key = {person.id}> <Person
        click = {() => this.deletePersonHandler(index)}
        name = {person.name}
        age = {person.age}
-       key = {person.id}
        changed={(event) => this.nameChangeHandler(event, person.id)} />
+       </ErrorBoundary>
      })}
   </div>
         );
