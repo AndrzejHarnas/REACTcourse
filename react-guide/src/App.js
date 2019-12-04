@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
-import './App.css';
+import classes from'./App.css';
 import Person from './Person/Person';
 import styled from 'styled-components';
 
@@ -71,19 +71,9 @@ this.setState({showPersons: !doesShow});
 }
 
 render(){
-  const style = {
-    backgroundColor:'green',
-    color: 'white',
-    font: 'inherit',
-    border: '1px solid blue',
-    padding: '8px',
-    ':hover':{
-      backgroundColor: 'lightgreen',
-      color: 'black'
-    }
-  }
 
 let persons = null;
+let btnClass = '';
 
 if(this.state.showPersons) {
   persons = (
@@ -98,29 +88,25 @@ if(this.state.showPersons) {
      })}
   </div>
         );
-//   style.backgroundColor = 'red';
-//   style[':hover'] = {
-//     backgroundColor: 'salmon',
-//     color: 'black'
-// };
+btnClass = classes.Red;
 }
 
-const classes = [];
+const assignedClasses = [];
 
 if(this.state.persons.length <=2) {
-  classes.push('red');
+  assignedClasses.push(classes.red);
 }
 if(this.state.persons.length <=1) {
-  classes.push('bold');
+  assignedClasses.push(classes.bold);
 }
 
 return (
-      <div className="App">
+      <div className={classes.App}>
         <h1>Hi i'am React APP </h1>
-        <p className={classes.join(' ')}> This is really working </p>
-        <StyledButton alt={this.state.showPersons}
+        <p className={assignedClasses.join(' ')}> This is really working </p>
+        <button className={btnClass}
          onClick={() => this.togglePersonsHandler()}> Show or Hide Persons
-        </StyledButton>
+        </button>
         {persons}
       </div>
     );
