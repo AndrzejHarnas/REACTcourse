@@ -2,7 +2,19 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Person from './Person/Person';
-import Radium, {StyleRoot} from 'radium';
+import styled from 'styled-components';
+
+const StyledButton = styled.button`
+  background-color: ${props => props.alt ? 'red' : 'green'};
+  color: white;
+  font: inherit;
+  border: 1px solid blue;
+  padding: 8px;
+  &:hover {
+    background-color: ${props => props.alt ? 'salmon' : 'light-green'};
+    color: black
+  }
+`;
 
 class App extends Component {
 state = ({
@@ -86,11 +98,11 @@ if(this.state.showPersons) {
      })}
   </div>
         );
- style.backgroundColor = 'red';
- style[':hover'] = {
-   backgroundColor: 'salmon',
-   color: 'black'
- }
+//   style.backgroundColor = 'red';
+//   style[':hover'] = {
+//     backgroundColor: 'salmon',
+//     color: 'black'
+// };
 }
 
 const classes = [];
@@ -103,18 +115,16 @@ if(this.state.persons.length <=1) {
 }
 
 return (
-  <StyleRoot>
       <div className="App">
         <h1>Hi i'am React APP </h1>
         <p className={classes.join(' ')}> This is really working </p>
-        <button
-         style={style}
-         onClick={() => this.togglePersonsHandler()}> Show or Hide Persons </button>
+        <StyledButton alt={this.state.showPersons}
+         onClick={() => this.togglePersonsHandler()}> Show or Hide Persons
+        </StyledButton>
         {persons}
       </div>
-    </StyleRoot>
     );
 }
 }
 
-export default Radium(App);
+export default App;
