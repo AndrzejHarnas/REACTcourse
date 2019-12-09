@@ -32,6 +32,17 @@ componentDidMount(){
 }
 
 
+shouldComponentUpdate(nextProps, nextSate) {
+  console.log('[App.js] shouldComponentUpdate');
+  return true;
+}
+
+
+componentDidUpdate(prevProps, PrevState) {
+     console.log('[App.js] componentDidUpdate');
+}
+
+
 switchNameHandler = (newName) => {
 //    console.log('i was cklicked');
  this.setState({
