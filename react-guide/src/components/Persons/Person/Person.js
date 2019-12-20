@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import classes from './Person.css';
 import Aux from '../../../hoc/Auxn/Auxn';
 import withClass from '../../../hoc/withClass';
+import AuthContext from '../../../context/auth-context';
 
 
 
@@ -25,6 +26,10 @@ render() {
  console.log('[Person.js] rendering')
   return (
     <Aux>
+    <AuthContext.Consumer>
+    {(context => context.authenticated ? <p> Authenticated!</p> : <p> Please log in </p>  )}
+     </AuthContext.Consumer>
+
       <p key="i1" onClick={this.props.click}> I'm a {this.props.name} and i am {this.props.age}  years old! </p>
       <p key="i2" >{this.props.children} </p>
       <input
