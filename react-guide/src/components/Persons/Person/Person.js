@@ -16,9 +16,12 @@ constructor() {
 }
 
 
+static contextType = AuthContext;
+
 componentDidMount() {
 //  this.inputElement.focus();
   this.inputElementRef.current.focus();
+  console.log(this.context.authenticated);
 }
 
 
@@ -26,9 +29,9 @@ render() {
  console.log('[Person.js] rendering')
   return (
     <Aux>
-    <AuthContext.Consumer>
-    {(context => context.authenticated ? <p> Authenticated!</p> : <p> Please log in </p>  )}
-     </AuthContext.Consumer>
+
+    {this.context.authenticated ? <p> Authenticated!</p> : <p> Please log in </p> }
+
 
       <p key="i1" onClick={this.props.click}> I'm a {this.props.name} and i am {this.props.age}  years old! </p>
       <p key="i2" >{this.props.children} </p>
