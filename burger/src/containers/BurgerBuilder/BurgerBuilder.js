@@ -29,7 +29,8 @@ state = {
     meat: 0
   },
   totalPrice: 4,
-  purchaseable: false
+  purchaseable: false,
+  purchasing: false
 
 }
 
@@ -79,6 +80,9 @@ removeIngredientHandler = (type) => {
   this.updatePurchasesState(updatedIngredients);
 }
 
+purchaseHandler = () => {
+  this.setState({purchasing: true});
+}
 
 
   render() {
@@ -91,19 +95,26 @@ removeIngredientHandler = (type) => {
     }
 
     return(
-      <Aux>
-          <Modal>
+
+  <Aux>
+          <Modal show={this.state.purchasing}>
             <OrderSummary ingredients={this.state.ingredients}/>
           </Modal>
+
+
       <Burger ingredients={this.state.ingredients} />
       <BuildControls
         ingredientAdded={this.addIngredientHandler}
         ingredientRemoved={this.removeIngredientHandler}
         disabled= {disabledInfo}
         purchaseable = {this.state.purchaseable}
+        ordered = {this.purchaseHandler}
         price={this.state.totalPrice}
       />
-      </Aux>
+
+
+</Aux>
+
     );
   }
 }
