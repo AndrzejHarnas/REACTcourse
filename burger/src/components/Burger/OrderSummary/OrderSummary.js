@@ -17,6 +17,7 @@ return (
   <p> A delicious burger with the following ingredients: </p>
   <ul>
     {ingredientSummary}
+    <p><strong> Total price: {props.price} </strong> </p>
   </ul>
   <p> Continue to Checkout ? </p>
   <Button btnType="Danger" clicked={props.purchaseCanceled}>Cancel</Button>

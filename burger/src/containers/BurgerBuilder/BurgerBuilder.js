@@ -109,6 +109,7 @@ purchaseContinueHandler = () => {
             ingredients={this.state.ingredients}
             purchaseCanceled = {this.purchaseCancelHandler}
             purchaseContinued = {this.purchaseContinueHandler}
+            price={this.state.totalPrice.toFixed(2)}
             />
           </Modal>
 
