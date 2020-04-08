@@ -12,7 +12,7 @@ const modal = (props) => (
       opacity: props.show ? '1' : '0'
   }
 } >
-    {props.children}
+    {  props.show ? props.children : null }
   </div>
   </Aux>
 );
