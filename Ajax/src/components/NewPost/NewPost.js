@@ -15,9 +15,13 @@ postDataHandler = () => {
     title: this.state.title,
     body: this.state.content,
     author: this.state.author
-  }
-  axios.post('https://jsonplaceholder.typicode.com/posts', data)
-  .then(response => {
+  };
+
+
+  axios.post('https://jsonplaceholder.typicode.com/posts', data, {headers: {
+    "Access-Control-Allow-Origin": "*"
+  }})
+  .then((response) => {
     console.log(response)
   });
 }
