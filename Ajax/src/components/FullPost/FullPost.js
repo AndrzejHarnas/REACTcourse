@@ -22,8 +22,14 @@ componentDidUpdate(){
 }
 
 deletePostHandler = () => {
-axios.delete('https://jsonplaceholder.typicode.com/posts/' + this.props.id)
-.then(response => {
+//axios.delete('https://jsonplaceholder.typicode.com/posts/' + this.props.id)
+//.then(response => {
+//  console.log(response)
+//})
+
+fetch('https://jsonplaceholder.typicode.com/posts/'+this.state.id, {
+  method: 'DELETE'
+}).then((response) => {
   console.log(response)
 })
 

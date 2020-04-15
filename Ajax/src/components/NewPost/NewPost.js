@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+//import axios from 'axios';
 
 import './NewPost.css';
 
@@ -16,12 +16,25 @@ postDataHandler = () => {
     body: this.state.content,
     author: this.state.author
   };
+//  axios.post('https://jsonplaceholder.typicode.com/posts', data, {
+//    mode: 'no-cors',
+  //  method: 'POST',
+  //  body: JSON.stringify(data),
+//    headers: {
+//    "Content-type": "application/json; charset=UTF-8"
+//  }
+  //}
+//  })
 
-
-  axios.post('https://jsonplaceholder.typicode.com/posts', data, {headers: {
-    "Access-Control-Allow-Origin": "*"
-  }})
-  .then((response) => {
+fetch('https://jsonplaceholder.typicode.com/posts',{
+  mode: 'no-cors',
+  method: 'POST',
+  body: JSON.stringify(data),
+  headers: {
+  "Content-type": "application/json; charset=UTF-8"
+  }
+})
+.then((response) => {
     console.log(response)
   });
 }
