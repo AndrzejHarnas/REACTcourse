@@ -12,7 +12,7 @@ state = {
 componentDidUpdate(){
   if(this.props.id) {
     if(!this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== this.props.id)){
-      axios.get('https://jsonplaceholder.typicode.com/posts/' + this.props.id)
+      axios.get('/posts/' + this.props.id)
       .then(response => {
   //  console.log(response);
       this.setState({loadedPost: response.data});
@@ -22,16 +22,16 @@ componentDidUpdate(){
 }
 
 deletePostHandler = () => {
-//axios.delete('https://jsonplaceholder.typicode.com/posts/' + this.props.id)
-//.then(response => {
-//  console.log(response)
-//})
-
-fetch('https://jsonplaceholder.typicode.com/posts/'+this.state.id, {
-  method: 'DELETE'
-}).then((response) => {
+axios.delete('/posts/' + this.props.id)
+.then(response => {
   console.log(response)
 })
+
+//fetch('https://jsonplaceholder.typicode.com/posts/'+this.state.id, {
+//  method: 'DELETE'
+//}).then((response) => {
+//  console.log(response)
+//})
 
 }
 
