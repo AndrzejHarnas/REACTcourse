@@ -27,16 +27,12 @@ class BurgerBuilder extends Component {
 
 state = {
 
-  ingredients: {
-    salad: 0,
-    bacon: 0,
-    cheese:0,
-    meat: 0
-  },
+  ingredients: null,
   totalPrice: 4,
   purchaseable: false,
   purchasing: false,
-  loading: false
+  loading: false,
+  error: false
 
 }
 
@@ -124,6 +120,16 @@ axios.post('/orders.json',order)
 
 }
 
+componentDidMount(){
+  axios.get('https://reacat-burger.firebaseio.com/ingredients.json')
+  .then(response => {
+     this.setState({ingredients: response.data});
+  })
+  .catch(error => {
+    this.setState({error: true})
+  });
+}
+
   render() {
     const disabledInfo = {
       ...this.state.ingredients
@@ -133,12 +139,31 @@ axios.post('/orders.json',order)
       disabledInfo[key] = disabledInfo[key] <=0
     }
 
-    let orderSummary =     <OrderSummary
-        ingredients={this.state.ingredients}
-        purchaseCanceled = {this.purchaseCancelHandler}
-        purchaseContinued = {this.purchaseContinueHandler}
-        price={this.state.totalPrice.toFixed(2)}
-        /> ;
+
+    let orderSummary = null;
+    let burger = this.state.error ? <p> Fatal error ingredients can't be loaded </p> : <Spinner />;
+
+    if(this.state.ingredients) {
+    burger = (
+           <Aux>
+                 <Burger ingredients={this.state.ingredients} />
+                 <BuildControls
+                 ingredientAdded={this.addIngredientHandler}
+                 ingredientRemoved={this.removeIngredientHandler}
+                 disabled= {disabledInfo}
+                 purchaseable = {this.state.purchaseable}
+                 ordered = {this.purchaseHandler}
+                 price={this.state.totalPrice}
+                 />
+         </Aux>    );
+
+             orderSummary =     <OrderSummary
+             ingredients={this.state.ingredients}
+             purchaseCanceled = {this.purchaseCancelHandler}
+             purchaseContinued = {this.purchaseContinueHandler}
+             price={this.state.totalPrice.toFixed(2)}
+             /> ;
+     }
 
     if(this.state.loading) {
         orderSummary = <Spinner />;
@@ -150,16 +175,8 @@ axios.post('/orders.json',order)
             {orderSummary}
           </Modal>
 
+          {burger}
 
-      <Burger ingredients={this.state.ingredients} />
-      <BuildControls
-        ingredientAdded={this.addIngredientHandler}
-        ingredientRemoved={this.removeIngredientHandler}
-        disabled= {disabledInfo}
-        purchaseable = {this.state.purchaseable}
-        ordered = {this.purchaseHandler}
-        price={this.state.totalPrice}
-      />
 
 
 </Aux>
