@@ -130,6 +130,8 @@ componentDidMount(){
   });
 }
 
+
+
   render() {
     const disabledInfo = {
       ...this.state.ingredients
