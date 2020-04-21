@@ -31,6 +31,10 @@ postDataHandler = () => {
   });
 }
 
+componentDidMount(){
+  console.log(this.props);
+}
+
     render () {
         return (
             <div className="NewPost">
