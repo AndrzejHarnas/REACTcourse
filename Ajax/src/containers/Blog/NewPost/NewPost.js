@@ -28,7 +28,8 @@ postDataHandler = () => {
 }
 
 componentDidMount(){
-  console.log(this.props);
+ //if auth =>  this.props.history.replace('/posts');
+ console.log(this.props);
 }
 
     render () {
