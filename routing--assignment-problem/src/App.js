@@ -28,8 +28,8 @@ class App extends Component {
 
     <Switch>
       <Route path="/users" exact component ={ Users } />
+      <Route path="/courses/:courseid/:coursetitle" exact component = { Course } />
       <Route path="/courses" exact component = { Courses } />
-      <Route path="/courses/course" exact component = { Course } />
     </Switch>
       </div>
       </BrowserRouter>
