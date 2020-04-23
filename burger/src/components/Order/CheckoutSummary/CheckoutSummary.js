@@ -13,11 +13,11 @@ return (
     </div>
     <Button
        btnType="Danger"
-       clicked
+       clicked={props.checkooutCanceled}
      >CANCEL</Button>
     <Button
       btnType="Success"
-      clicked
+      clicked={props.checkoutContinued}
       >CONTINUE</Button>
 
   </div>
