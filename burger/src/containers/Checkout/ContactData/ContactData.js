@@ -71,9 +71,15 @@ state = {
 orderHandler = (event) => {
   event.preventDefault();
     this.setState({loading:true})
+    const formData = {};
+    for (let formElementIdentifire in this.state.orderForm){
+      formData[formElementIdentifire] = this.state.orderForm[formElementIdentifire].value;
+    }
+
   const order = {
     ingredients: this.props.ingredients,
     price: this.props.price,
+    orderData: formData
 
   }
   axios.post('/orders.json',order)
@@ -109,7 +115,7 @@ this.setState({orderForm: updatedOrderForm});
       })
     }
     let  form = (
-      <form >
+      <form onSubmit={this.orderHandler}>
         {formElementsArray.map(formElement =>(
           <Input
           elementType={formElement.config.elementType}
@@ -120,7 +126,7 @@ this.setState({orderForm: updatedOrderForm});
           changed={(event) => this.inputChangedHandler(event,formElement.id)}
            />
         ))}
-        <Button btnType="Success" clicked={this.orderHandelr} > Order </Button>
+        <Button btnType="Success" > Order </Button>
       </form>
     );
     if (this.state.loading) {
