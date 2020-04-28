@@ -165,6 +165,8 @@ this.setState({orderForm: updatedOrderForm});
           value={formElement.config.value}
           id={formElement.id}
           key={formElement.id}
+          invalid={!formElement.config.valid}
+          shouldValidate={formElement.config.validation}
           changed={(event) => this.inputChangedHandler(event,formElement.id)}
            />
         ))}
