@@ -19,7 +19,8 @@ state = {
         validation: {
           required: true
         },
-        valid: false
+        valid: false,
+        touched: false
       },
 
       street: {
@@ -32,7 +33,8 @@ state = {
         validation: {
           required: true
         },
-        valid: false
+        valid: false,
+        touched: false
       },
 
       zipcode: {
@@ -48,7 +50,8 @@ state = {
           maxLength: 5
 
         },
-        valid: false
+        valid: false,
+        touched: false
       },
 
       country: {
@@ -73,7 +76,8 @@ state = {
         validation: {
           required: true
         },
-        valid: false
+        valid: false,
+        touched: false
       },
       deliveryMethod: {
         elementType: 'select',
@@ -83,13 +87,16 @@ state = {
             {value: 'cheapest', displayValue: 'Cheapest'}
         ]
         },
-        value: ''
+        value: '',
+        validation: {},
+        valid: true
 
       },
 
   },
 
-  loading: false
+  loading: false,
+  formIsValid: false
 }
 
 orderHandler = (event) => {
@@ -144,8 +151,18 @@ const updatedFormElement = {
 
 updatedFormElement.value = event.target.value;
 updatedFormElement.valid = this.chceckValidity(updatedFormElement.value, updatedFormElement.validation);
+updatedFormElement.touched = true;
 updatedOrderForm[inputIndentifire] = updatedFormElement;
-this.setState({orderForm: updatedOrderForm});
+
+let formIsValid = true;
+for(let inputIndentifire in updatedOrderForm) {
+  formIsValid = updatedOrderForm[inputIndentifire].valid && formIsValid
+}
+
+
+this.setState({orderForm: updatedOrderForm, formIsValid: formIsValid});
+
+
 
 }
   render() {
@@ -166,11 +183,12 @@ this.setState({orderForm: updatedOrderForm});
           id={formElement.id}
           key={formElement.id}
           invalid={!formElement.config.valid}
+          touched={formElement.config.touched}
           shouldValidate={formElement.config.validation}
           changed={(event) => this.inputChangedHandler(event,formElement.id)}
            />
         ))}
-        <Button btnType="Success" > Order </Button>
+        <Button btnType="Success" disabled= {!this.state.formIsValid} > Order </Button>
       </form>
     );
     if (this.state.loading) {
