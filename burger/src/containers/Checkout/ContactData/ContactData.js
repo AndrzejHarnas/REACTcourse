@@ -87,6 +87,19 @@ orderHandler = (event) => {
 
 }
 
+inputChangedHandler = (event, inputIndentifire) => {
+ const updatedOrderForm = {
+   ...this.state.orderForm
+ };
+const updatedFormElement = {
+  ...updatedOrderForm[inputIndentifire]
+};
+
+updatedFormElement.value = event.target.value;
+updatedOrderForm[inputIndentifire] = updatedFormElement;
+this.setState({orderForm: updatedOrderForm});
+
+}
   render() {
     const formElementsArray = [];
     for (let key in this.state.orderForm) {
@@ -103,6 +116,8 @@ orderHandler = (event) => {
           elementConfig={formElement.config.elementConfig}
           value={formElement.config.value}
           id={formElement.id}
+          key={formElement.id}
+          changed={(event) => this.inputChangedHandler(event,formElement.id)}
            />
         ))}
         <Button btnType="Success" clicked={this.orderHandelr} > Order </Button>
