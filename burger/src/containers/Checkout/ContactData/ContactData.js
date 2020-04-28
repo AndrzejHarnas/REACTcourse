@@ -15,7 +15,11 @@ state = {
           type: 'text',
           placeholder:'Your Name'
         },
-        value: ''
+        value: '',
+        validation: {
+          required: true
+        },
+        valid: false
       },
 
       street: {
@@ -24,7 +28,11 @@ state = {
           type: 'text',
           placeholder:'Street'
         },
-        value: ''
+        value: '',
+        validation: {
+          required: true
+        },
+        valid: false
       },
 
       zipcode: {
@@ -33,7 +41,14 @@ state = {
           type: 'text',
           placeholder:'ZIP Code'
         },
-        value: ''
+        value: '',
+        validation: {
+          required: true,
+          minLength: 5,
+          maxLength: 5
+
+        },
+        valid: false
       },
 
       country: {
@@ -42,7 +57,11 @@ state = {
           type: 'text',
           placeholder:'Country'
         },
-        value: ''
+        value: '',
+        validation: {
+          required: true
+        },
+        valid: false
       },
       email: {
         elementType: 'input',
@@ -50,7 +69,11 @@ state = {
           type: 'email',
           placeholder:'Your E-mail'
         },
-        value: ''
+        value: '',
+        validation: {
+          required: true
+        },
+        valid: false
       },
       deliveryMethod: {
         elementType: 'select',
@@ -61,6 +84,7 @@ state = {
         ]
         },
         value: ''
+
       },
 
   },
@@ -93,6 +117,23 @@ orderHandler = (event) => {
 
 }
 
+chceckValidity(value, rules) {
+  let isValid = true;
+    if(rules.required) {
+      isValid = value.trim() !== '' && isValid;
+    }
+
+    if(rules.minLength) {
+      isValid = value.length >= rules.minLength && isValid;
+    }
+
+    if(rules.maxLength) {
+      isValid = value.length <= rules.maxLength && isValid;
+    }
+
+    return isValid;
+}
+
 inputChangedHandler = (event, inputIndentifire) => {
  const updatedOrderForm = {
    ...this.state.orderForm
@@ -102,6 +143,7 @@ const updatedFormElement = {
 };
 
 updatedFormElement.value = event.target.value;
+updatedFormElement.valid = this.chceckValidity(updatedFormElement.value, updatedFormElement.validation);
 updatedOrderForm[inputIndentifire] = updatedFormElement;
 this.setState({orderForm: updatedOrderForm});
 
