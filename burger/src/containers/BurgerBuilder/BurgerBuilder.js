@@ -15,7 +15,6 @@ import axios from '../../axios-orders';
 
 
 
-
 class BurgerBuilder extends Component {
 //  constructor(props){
 //    super(props);
@@ -23,7 +22,6 @@ class BurgerBuilder extends Component {
 //  }
 
 state = {
-  purchaseable: false,
   purchasing: false,
   loading: false,
   error: false
@@ -36,7 +34,7 @@ updatePurchasesState (ingredients) {
     return ingredients[igKey];
   })
   .reduce((sum, el) => { return sum + el;},0);
-  this.setState({purchaseable: sum >0});
+  return sum >0;
 
 }
 
@@ -52,32 +50,10 @@ purchaseContinueHandler = () => {
   //alert('You continue');
 
 
-const queryParams = [];
-for(let i in this.state.ingredients) {
-  queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]));
-}
-
-queryParams.push('price=' + this.state.totalPrice);
-
-const queryString = queryParams.join('&');
-
- this.props.history.push({
-   pathname:'/checkout',
-   search: '?' +queryString
- });
+ this.props.history.push('/checkout');
 
 }
 
-componentDidMount(){
-  console.log(this.props);
-  // axios.get('https://reacat-burger.firebaseio.com/ingredients.json')
-  // .then(response => {
-  //    this.setState({ingredients: response.data});
-  // })
-  // .catch(error => {
-  //   this.setState({error: true})
-  // });
-}
 
 
 
@@ -87,7 +63,7 @@ componentDidMount(){
     };
 
     for(let key in disabledInfo) {
-      disabledInfo[key] = disabledInfo[key] <=0
+      disabledInfo[key] = disabledInfo[key] <=0;
     }
 
 
@@ -102,7 +78,7 @@ componentDidMount(){
                  ingredientAdded={this.props.onIngredientsAdded}
                  ingredientRemoved={this.props.onIngredientsRemoved}
                  disabled= {disabledInfo}
-                 purchaseable = {this.state.purchaseable}
+                 purchaseable = {this.updatePurchasesState(this.props.ings)}
                  ordered = {this.purchaseHandler}
                  price={this.props.price}
                  />
@@ -141,14 +117,14 @@ const mapStateToProps = state => {
     ings: state.ingredients,
     price: state.totalPrice
   }
-}
+};
 
 const mapDispatchToProps = dispatch => {
   return {
     onIngredientsAdded: (ingName) => dispatch({type: actionTypes.ADD_INGREDIENT, ingredientName: ingName}),
     onIngredientsRemoved: (ingName) => dispatch({type: actionTypes.REMOVE_INGREDIENT, ingredientName: ingName}),
   }
-}
+};
 
 
 
